@@ -37,7 +37,7 @@ class BinarySearchTree:
         if current.data == data:
             return current
 
-        if current.data > data:
+        if current.data < data:
             return self._search(current.right, data)
         else:
             return self._search(current.left, data)
