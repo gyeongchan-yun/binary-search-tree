@@ -75,6 +75,20 @@ class BinarySearchTree:
         else:
             return self._get_replace_node(current, current.left)
 
+    def pre_order_traverse(self):
+        if self.root is None:
+            print("No root")
+        else:
+            self._pre_order(self.root)
+
+    def _pre_order(self, current):
+        if current is None:
+            pass
+        else:
+            print(current.data)
+            self._pre_order(current.left)
+            self._pre_order(current.right)
+
 
 def example():
     array = [13, 30, 16, 4, 42, 20, 25, 28, 10]
@@ -87,6 +101,9 @@ def example():
 
     print(bst.delete(13))
     print(bst.delete(3))
+
+    # traversal
+    print(bst.pre_order_traverse())
 
 
 if __name__ == "__main__":
