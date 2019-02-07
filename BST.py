@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+
+
 class Node:
     def __init__(self, data):
         self.data = data
@@ -6,6 +9,7 @@ class Node:
 
 
 class BinarySearchTree:
+
     def __init__(self):
         self.root = None
 
@@ -94,6 +98,47 @@ class BinarySearchTree:
             self._pre_order(current.left)
             self._pre_order(current.right)
 
+    def in_order_traverse(self):
+        if self.root is None:
+            print("No root")
+        else:
+            self._in_order(self.root)
+
+    def _in_order(self, current):
+        if current is None:
+            pass
+        else:
+            self._in_order(current.left)
+            print(current.data)
+            self._in_order(current.right)
+
+    def post_order_traverse(self):
+        if self.root is None:
+            print("No root")
+        else:
+            self._post_order(self.root)
+
+    def _post_order(self, current):
+        if current is None:
+            pass
+        else:
+            self._post_order(current.left)
+            self._post_order(current.right)
+            print(current.data)
+
+    def level_order_traverse(self):
+        if self.root is None:
+            print("No root")
+        else:
+            queue = [self.root]
+            while queue:
+                node = queue.pop(0)
+                print(node.data)
+                if node.left is not None:
+                    queue.append(node.left)
+                if node.right is not None:
+                    queue.append(node.right)
+
 
 def example():
     array = [13, 30, 16, 4, 42, 20, 25, 28, 10]
@@ -108,7 +153,14 @@ def example():
     print(bst.delete(3))
     print(bst.search(13))
     # traversal
+    print("pre-order traversal")
     bst.pre_order_traverse()
+    print("in-order traversal")
+    bst.in_order_traverse()
+    print("post-order traversal")
+    bst.post_order_traverse()
+    print("level-order traversal")
+    bst.level_order_traverse()
 
 
 if __name__ == "__main__":
