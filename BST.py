@@ -44,33 +44,38 @@ class BinarySearchTree:
 
     def delete(self, data):
         current_node = self._search(self.root, data)
+        is_root = False
         if not current_node:
             return False
         else:
-            return self._delete(current_node, data)
+            if current_node == self.root:
+                is_root = True
+            return self._delete(current_node, data, is_root)
 
-    def _delete(self, current, data):
+    def _delete(self, current, data, is_root):
         if current.left is None and current.right is None:  # case 1: No child node
             current = None
-            return True
         # case 2: One child node
         elif current.left is not None and current.right is None:
             current = current.left
-            return True
         elif current.left is None and current.right is not None:
             current = current.right
-            return True
         # case 3: Two child node -> find leftest node in right child node and replace it
         elif current.left is not None and current.right is not None:
             replace_node = self._get_replace_node(current, current.right)
             replace_node.left = current.left
             replace_node.right = current.right
             current = replace_node
-            return True
+
+        if is_root:
+            self.root = current
+
+        return True
 
     def _get_replace_node(self, parent, current):
         if current.left is None:
             parent.left = current.right
+            current.right = None
             return current
         else:
             return self._get_replace_node(current, current.left)
@@ -101,9 +106,9 @@ def example():
 
     print(bst.delete(13))
     print(bst.delete(3))
-
+    print(bst.search(13))
     # traversal
-    print(bst.pre_order_traverse())
+    bst.pre_order_traverse()
 
 
 if __name__ == "__main__":
